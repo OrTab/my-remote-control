@@ -1,4 +1,5 @@
 from events.constants import MOUSE_EVENTS
+from services.util_service import set_timeout
 
 
 def get_position(data):
@@ -30,3 +31,13 @@ def get_mouse_event_data(type, data):
         "type": type,
         **event_data_per_type[type](data),
     }
+
+
+event_timers = {}
+
+
+def debounce_event_sending(event_type, cb, duration=0.2):
+    if event_type in event_timers:
+        event_timers[event_type].cancel()
+
+    event_timers[event_type] = set_timeout(cb, duration)

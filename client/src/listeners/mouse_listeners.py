@@ -8,7 +8,7 @@ def mouse_event_listener(type):
     def handler(*args):
         event_data = get_mouse_event_data(type, args)
         mouse_event = MouseEvent(event_data)
-        print(mouse_event.position)
+        mouse_event.send()
 
     return handler
 

@@ -5,9 +5,9 @@ from events.constants import KEYBOARD_EVENTS
 from threading import Thread
 
 
-def keyboard_event_listener(type):
+def keyboard_event_listener(event_name):
     def handler(*args):
-        event_data = get_keyboard_event_data(type, args)
+        event_data = get_keyboard_event_data(event_name, args)
         keyboard_event = KeyboardEvent(event_data)
         keyboard_event.send()
 
@@ -18,7 +18,6 @@ def run_keyboard_listeners():
     events_listeners = {}
     for event in KEYBOARD_EVENTS:
         events_listeners[event] = keyboard_event_listener(event)
-    print("here key")
     with keyboard.Listener(**events_listeners) as listener:
         listener.join()
 

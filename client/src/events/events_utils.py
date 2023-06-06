@@ -32,20 +32,26 @@ event_data_per_type = {
 }
 
 
-def get_mouse_event_data(type, data):
+def get_mouse_event_data(event_name, data):
     return {
+        **event_data_per_type[event_name](data),
         "position": get_position(data),
-        "type": type,
+        "type": "mouse_event",
+        "event_name": event_name,
         "is_pressed": is_mouse_pressed,
-        **event_data_per_type[type](data),
     }
 
 
 # ------keyboard--------
 
 
-def get_keyboard_event_data(type, data):
-    return {"key": data[0], "is_pressed": type == "on_press", "type": type}
+def get_keyboard_event_data(event_name, data):
+    return {
+        "key": data[0],
+        "is_pressed": event_name == "on_press",
+        "type": "keyboard_event",
+        "event_name": event_name,
+    }
 
 
 # -------shared---------

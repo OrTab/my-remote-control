@@ -5,9 +5,9 @@ from events.constants import MOUSE_EVENTS
 from threading import Thread
 
 
-def mouse_event_listener(type):
+def mouse_event_listener(event_name):
     def handler(*args):
-        event_data = get_mouse_event_data(type, args)
+        event_data = get_mouse_event_data(event_name, args)
         mouse_event = MouseEvent(event_data)
         mouse_event.send()
 

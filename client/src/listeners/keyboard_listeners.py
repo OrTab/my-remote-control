@@ -6,8 +6,12 @@ from threading import Thread
 
 
 def keyboard_event_listener(event_name):
-    def handler(*args):
-        event_data = get_keyboard_event_data(event_name, args)
+    def handler(key):
+        try:
+            key = key.char
+        except AttributeError:
+            key = key
+        event_data = get_keyboard_event_data(event_name, key)
         keyboard_event = KeyboardEvent(event_data)
         keyboard_event.send()
 

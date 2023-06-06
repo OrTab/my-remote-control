@@ -45,9 +45,9 @@ def get_mouse_event_data(event_name, data):
 # ------keyboard--------
 
 
-def get_keyboard_event_data(event_name, data):
+def get_keyboard_event_data(event_name, key):
     return {
-        "key": data[0],
+        "key": key,
         "is_pressed": event_name == "on_press",
         "type": "keyboard_event",
         "event_name": event_name,

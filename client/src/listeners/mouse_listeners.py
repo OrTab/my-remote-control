@@ -2,6 +2,7 @@ from pynput import mouse
 from events.mouse_event import MouseEvent
 from events.events_utils import get_mouse_event_data
 from events.constants import MOUSE_EVENTS
+from threading import Thread
 
 
 def mouse_event_listener(type):
@@ -13,12 +14,17 @@ def mouse_event_listener(type):
     return handler
 
 
-def run_listeners():
+def run_mouse_listeners():
     events_listeners = {}
     for event in MOUSE_EVENTS:
         events_listeners[event] = mouse_event_listener(event)
     with mouse.Listener(**events_listeners) as listener:
         listener.join()
+
+
+def run_mouse_listener_thread():
+    thread = Thread(target=run_mouse_listeners)
+    thread.start()
 
 
 # # ...or, in a non-blocking fashion:

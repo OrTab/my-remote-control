@@ -1,7 +1,9 @@
 from events.constants import MOUSE_EVENTS
 from services.util_service import set_timeout
+import threading
 
 
+# ------mouse--------
 def get_position(data):
     return {"x": data[0], "y": data[1]}
 
@@ -33,6 +35,14 @@ def get_mouse_event_data(type, data):
     }
 
 
+# ------keyboard--------
+
+
+def get_keyboard_event_data(type, data):
+    return {"key": data[0], "is_pressed": type == "on_press", "type": type}
+
+
+# -------shared---------
 event_timers = {}
 event_timers_lock = threading.Lock()
 
@@ -42,4 +52,4 @@ def debounce_event_sending(event_type, cb, duration=0.2):
         if event_type in event_timers:
             event_timers[event_type].cancel()
 
-            event_timers[event_type] = set_timeout(cb, duration)
+        event_timers[event_type] = set_timeout(cb, duration)

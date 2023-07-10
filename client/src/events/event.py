@@ -1,5 +1,5 @@
 from events.constants import EVENTS_FOR_DEBOUNCE
-from events.events_utils import debounce_event_sending
+from events.events_utils import debounce_event
 from control.keyboard.keyboard_control import KeyboardControl
 from control.mouse.mouse_control import MouseControl
 
@@ -23,10 +23,8 @@ class Event:
         self.is_pressed = event_data["is_pressed"]
 
     def send(self):
-        if self.type in EVENTS_FOR_DEBOUNCE:
-            debounce_event_sending(
-                self.type, lambda: print("here timeout", self.type), 0.5
-            )
+        if self.event_name in EVENTS_FOR_DEBOUNCE:
+            debounce_event(self.type, lambda: print("here timeout", self.type), 0.5)
         else:
             if self.type == "keyboard_event":
                 keyboard_control_send(self)

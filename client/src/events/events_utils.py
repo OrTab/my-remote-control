@@ -59,7 +59,7 @@ event_timers = {}
 event_timers_lock = threading.Lock()
 
 
-def debounce_event_sending(event_type, cb, duration=0.2):
+def debounce_event(event_type, cb, duration=0.2):
     with event_timers_lock:
         if event_type in event_timers:
             event_timers[event_type].cancel()
